@@ -1,0 +1,127 @@
+{
+    "_version": "1.65.0",
+    "sap.app": {
+        "id": "reprequeriments",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:basic",
+            "version": "1.18.0",
+            "toolsId": "df915781-6266-41b0-9859-6a3d58752166"
+        },
+        "dataSources": {
+            "serviceModel": {
+                "type": "JSON",
+                "uri": "model/data.json"
+            }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "catRequirements-manage": {
+                    "semanticObject": "repRequirements",
+                    "action": "view",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    }
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "sap-icon://survey",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.136.1",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "reprequeriments.i18n.i18n"
+                }
+            },
+            "serviceModel": {
+                "dataSource": "serviceModel",
+                "preload": true,
+                "settings": {}
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "controlAggregation": "pages",
+                "controlId": "app",
+                "transition": "slide",
+                "type": "View",
+                "viewType": "XML",
+                "path": "reprequeriments.view",
+                "async": true,
+                "viewPath": "reprequeriments.view"
+            },
+            "routes": [
+                {
+                    "name": "RouteMain",
+                    "pattern": ":?query:",
+                    "target": [
+                        "TargetMain"
+                    ]
+                }
+            ],
+            "targets": {
+                "TargetMain": {
+                    "id": "Main",
+                    "name": "Main"
+                }
+            }
+        },
+        "rootView": {
+            "viewName": "reprequeriments.view.App",
+            "type": "XML",
+            "id": "App",
+            "async": true
+        }
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "reprequeriments"
+    }
+}

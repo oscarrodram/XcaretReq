@@ -1,0 +1,459 @@
+<mvc:View controllerName="reprequeriments.controller.Main"
+    xmlns="sap.ui.table"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:u="sap.ui.unified"
+	xmlns:c="sap.ui.core"
+	xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:f="sap.f"
+	xmlns:m="sap.m"
+	xmlns:formatter="reprequeriments.model.formatter"
+	xmlns:p="sap.m.plugins" >
+    <f:DynamicPage id="page" title="{i18n>title} ( {= ${serviceModel>/repRequerimientos}.length} ) "
+	   class="sapUiContentPadding">
+	   <f:header>
+	     <f:DynamicPageHeader id="mPageHeader" >
+		   <f:content>
+		     <fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" search="_getData" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+			   <fb:filterGroupItems>
+			        <fb:FilterGroupItem id="fdate" name="fdATE" label="{i18n>ERDAT}" groupName="Group1" visibleInFilterBar="true">
+						<fb:control>
+							<m:DateRangeSelection 
+								id="dateRangeFilter"
+								placeholder="Seleccione rango"
+								change=".onDateRangeChange"
+								width="250px"/>
+					    </fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem id="fPspnr" name="Proyecto" label="{i18n>PSPNR}" groupName="Group1" visibleInFilterBar="true">
+						<fb:control>
+					    	<m:MultiInput width="40%" id="pspnr" tokenUpdate="onBrandUpdate" valueHelpRequest="findHandleFragment" 
+									suggestionItems="{ path: 'serviceModel>/fPro', sorter: { path: 'PSPNR' } }" >
+										<m:customData>
+											<c:CustomData key="fragmentPath" value="V1" />
+										</m:customData>
+									<c:Item id="mItem" key="{serviceModel>PSPNR}" text="{serviceModel>PROJECT_NAME}"/>
+							</m:MultiInput>
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem id="fBanfn" name="Requerimiento" label="{i18n>BANFN}" groupName="Group1" visibleInFilterBar="true">
+						<fb:control>
+					    	<m:MultiInput width="40%" id="Req" tokenUpdate="onBrandUpdate" valueHelpRequest="findHandleFragment" 
+									suggestionItems="{ path: 'serviceModel>/fReq', sorter: { path: 'BANFN' } }" >
+										<m:customData>
+											<c:CustomData key="fragmentPath" value="V2" />
+										</m:customData>
+									<c:Item id="mItemR" key="{serviceModel>BANFN}" text="{serviceModel>BANFN}"/>
+							</m:MultiInput>
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem id="fMatnr" name="Material" label="{i18n>MATNR}" groupName="Group1" visibleInFilterBar="true">
+						<fb:control>
+					    	<m:MultiInput width="40%" id="Matnr" tokenUpdate="onBrandUpdate" valueHelpRequest="findHandleFragment" 
+									suggestionItems="{ path: 'serviceModel>/fMat', sorter: { path: 'MATNR' } }" >
+										<m:customData>
+											<c:CustomData key="fragmentPath" value="V3" />
+										</m:customData>
+									<c:Item id="mItemM" key="{serviceModel>MATNR}" text="{serviceModel>MATERIAL_NAME}"/>
+							</m:MultiInput>
+						</fb:control>
+					</fb:FilterGroupItem>
+				    <fb:FilterGroupItem id="fCATEGORY_ID" name="Categoría" label="{i18n>CATEGORY_DESC}" groupName="Group1" visibleInFilterBar="true">
+						<fb:control>
+					    	<m:MultiInput width="40%" id="CATEGORY_ID" tokenUpdate="onBrandUpdate" valueHelpRequest="findHandleFragment" 
+									suggestionItems="{ path: 'serviceModel>/fCat', sorter: { path: 'CATEGORY_ID' } }" >
+										<m:customData>
+											<c:CustomData key="fragmentPath" value="V4" />
+										</m:customData>
+									<c:Item id="mItemC" key="{serviceModel>CATEGORY_ID}" text="{serviceModel>CATEGORY_DESC}"/>
+							</m:MultiInput>
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem id="fFam" name="Familia" label="{i18n>FAMILY_DESC}" groupName="Group1" visibleInFilterBar="true">
+						<fb:control>
+					    	<m:MultiInput width="40%" id="Family" tokenUpdate="onBrandUpdate" valueHelpRequest="findHandleFragment" 
+									suggestionItems="{ path: 'serviceModel>/fFam', sorter: { path: 'FAMILY_ID' } }" >
+										<m:customData>
+											<c:CustomData key="fragmentPath" value="V5" />
+										</m:customData>
+									<c:Item id="mItemFa" key="{serviceModel>FAMILY_ID}" text="{serviceModel>FAMILY_DESC}"/>
+							</m:MultiInput>
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem id="fFGMDI" name="fFGMDI" label="{i18n>FGMDI}" groupName="Group1" visibleInFilterBar="true">
+						<fb:control>
+					    	<m:MultiInput width="40%" id="FGMDI" tokenUpdate="onBrandUpdate" valueHelpRequest="findHandleFragment" 
+									suggestionItems="{ path: 'serviceModel>/ffg', sorter: { path: 'FGMDI' } }" >
+										<m:customData>
+											<c:CustomData key="fragmentPath" value="V6" />
+										</m:customData>
+									<c:Item id="mItemFi" key="{serviceModel>FGMDI}" text="{serviceModel>FGMDI}"/>
+							</m:MultiInput>
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem id="fDiv" name="fDiv" label="{i18n>DIVISION_DESC}" groupName="Group1" visibleInFilterBar="true">
+						<fb:control>
+					    	<m:MultiInput width="40%" id="DIVSN" tokenUpdate="onBrandUpdate" valueHelpRequest="findHandleFragment" 
+									suggestionItems="{ path: 'serviceModel>/fDiv', sorter: { path: 'DIVSN' } }" >
+										<m:customData>
+											<c:CustomData key="fragmentPath" value="V7" />
+										</m:customData>
+									<c:Item id="mItemDi" key="{serviceModel>DIVSN}" text="{serviceModel>DIVISION_DESC}"/>
+							</m:MultiInput>
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem id="fArea" name="farea" label="{i18n>AREA_DESC}" groupName="Group1" visibleInFilterBar="true">
+						<fb:control>
+					    	<m:MultiInput width="40%" id="AREA" tokenUpdate="onBrandUpdate" valueHelpRequest="findHandleFragment" 
+									suggestionItems="{ path: 'serviceModel>/fArea', sorter: { path: 'AREA' } }" >
+										<m:customData>
+											<c:CustomData key="fragmentPath" value="V8" />
+										</m:customData>
+									<c:Item id="mItemA" key="{serviceModel>AREA}" text="{serviceModel>AREA_DESC}"/>
+							</m:MultiInput>
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem id="fUbi" name="fUbi" label="{i18n>UBICA}" groupName="Group1" visibleInFilterBar="true">
+						<fb:control>
+					    	<m:MultiInput width="40%" id="UBI" tokenUpdate="onBrandUpdate" valueHelpRequest="findHandleFragment" 
+									suggestionItems="{ path: 'serviceModel>/fUbi', sorter: { path: 'UBICA' } }" >
+										<m:customData>
+											<c:CustomData key="fragmentPath" value="V9" />
+										</m:customData>
+									<c:Item id="mItemU" key="{serviceModel>UBICA}" text="{serviceModel>UBICA}"/>
+							</m:MultiInput>
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem id="fsUbi" name="fsUbi" label="{i18n>SUBIC}" groupName="Group1" visibleInFilterBar="true">
+						<fb:control>
+					    	<m:MultiInput width="40%" id="SUBI" tokenUpdate="onBrandUpdate" valueHelpRequest="findHandleFragment" 
+									suggestionItems="{ path: 'serviceModel>/fSub', sorter: { path: 'SUBIC' } }" >
+										<m:customData>
+											<c:CustomData key="fragmentPath" value="V10" />
+										</m:customData>
+									<c:Item id="mItemSU" key="{serviceModel>SUBIC}" text="{serviceModel>SUBIC}"/>
+							</m:MultiInput>
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem id="fcreado" name="fCreado" label="{i18n>CREATION_NAME}" groupName="Group1" visibleInFilterBar="true">
+						<fb:control>
+					    	<m:MultiInput width="40%" id="CNAME" tokenUpdate="onBrandUpdate" valueHelpRequest="findHandleFragment" 
+									suggestionItems="{ path: 'serviceModel>/fCrea', sorter: { path: 'CREATION_NAME' } }" >
+										<m:customData>
+											<c:CustomData key="fragmentPath" value="V11" />
+										</m:customData>
+									<c:Item id="mItemCr" key="{serviceModel>CREATION_NAME}" text="{serviceModel>CREATION_NAME}"/>
+							</m:MultiInput>
+						</fb:control>
+					</fb:FilterGroupItem>
+			   </fb:filterGroupItems>
+			 </fb:FilterBar>
+		   </f:content>
+		 </f:DynamicPageHeader>
+	   </f:header>
+       <f:content>
+       <m:ScrollContainer id="sContainer"
+		height="100%"
+		width="100%"
+		vertical="true"
+		focusable="true">
+         	<Table
+			    id="tReqs"
+				rows="{serviceModel>/repRequerimientos}"
+				enableBusyIndicator="true"
+				selectionMode="None"
+				ariaLabelledBy="title"
+				visibleRowCount="15"
+				>
+				<extension>
+					<m:OverflowToolbar style="Clear">
+						<m:Title id="title" text="{i18n>req} ({= ${serviceModel>/repRequerimientos}.length})"/>
+						<m:ToolbarSpacer />
+						<m:Button icon="sap-icon://excel-attachment" press="onExport"/>
+						<m:Button
+								icon="sap-icon://action-settings"
+								tooltip="{i18n>setColumns}"
+								press="onOpenColumnSettings"/>
+					</m:OverflowToolbar>
+				</extension>
+				<columns>
+					<Column width="8rem" hAlign="Center" visible="{settingsModel>/LOEKZ}">
+						<m:Label text="{i18n>LOEKZ}" />
+						<template>
+						    <m:Switch type="AcceptReject" state="{= ${serviceModel>LOEKZ} === 'X' ? true : false  }" enabled="false" visible="{= ${serviceModel>isSubtotal} ? false : true  }">
+								<m:layoutData>
+									<m:FlexItemData growFactor="1" />
+								</m:layoutData>
+							</m:Switch>
+							<!--<m:Text text="{serviceModel>LOEKZ}" wrapping="false" />-->
+						</template>
+						<dependents>
+							<p:ColumnAIAction press="onAIActionPress"></p:ColumnAIAction>
+						</dependents>
+					</Column>	
+                    <Column width="8rem" filterProperty="PSPNR" hAlign="Center" visible="{settingsModel>/PSPNR}">
+						<m:Label text="{i18n>PSPNR}" />
+						<template>
+							<m:Text text="{serviceModel>PSPNR}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" filterProperty="PROJECT_NAME" visible="{settingsModel>/PROJECT_NAME}">
+						<m:Label text="{i18n>PROJECT_NAME}" />
+						<template>
+							<m:Text text="{serviceModel>PROJECT_NAME}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" filterProperty="ERDAT" visible="{settingsModel>/ERDAT}">
+						<m:Label text="{i18n>ERDAT}" />
+						<template>
+							<m:Text text="{serviceModel>ERDAT}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" filterProperty="BANFN" visible="{settingsModel>/BANFN}">
+						<m:Label text="{i18n>BANFN}" />
+						<template>
+							<m:Text text="{serviceModel>BANFN}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" hAlign="Center" visible="{settingsModel>/BNFPO}">
+						<m:Label text="{i18n>BNFPO}" />
+						<template>
+							<m:Text text="{serviceModel>BNFPO}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" filterProperty="STATUS" visible="{settingsModel>/STATUS}">
+						<m:Label text="{i18n>STATUS}" />
+						<template>
+							<m:Text text="{= ${i18n>LANG} === 'ES' ? ${serviceModel>STATUS_DESC_ES} : ${serviceModel>STATUS_DESC_EN}  }" wrapping="false" />
+						</template>
+					</Column>   
+                    <Column width="11rem" filterProperty="MATNR" hAlign="Center" visible="{settingsModel>/MATNR}">
+						<m:Label text="{i18n>MATNR}" />
+						<template>
+							<m:Text text="{serviceModel>MATNR}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" filterProperty="MATERIAL_NAME" visible="{settingsModel>/MATERIAL_NAME}">
+						<m:Label text="{i18n>MATERIAL_NAME}" />
+						<template>
+							<m:Text text="{serviceModel>MATERIAL_NAME}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" visible="{settingsModel>/MATERIAL_DESC}">
+						<m:Label text="{i18n>MATERIAL_DESC}" />
+						<template>
+							<m:Text text="{serviceModel>MATERIAL_DESC}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" hAlign="Center" visible="{settingsModel>/MENGE}">
+						<m:Label text="{i18n>MENGE}" />
+						<template>
+							<m:Text text="{serviceModel>MENGE}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" hAlign="Center" visible="{settingsModel>/MEINS}">
+						<m:Label text="{i18n>MEINS}" />
+						<template>
+							<m:Text text="{serviceModel>MEINS}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" filterProperty="CATEGORY_DESC" hAlign="Center" visible="{settingsModel>/CATEGORY_DESC}"> 
+						<m:Label text="{i18n>CATEGORY_DESC}" />
+						<template>
+							<m:Text text="{serviceModel>CATEGORY_DESC}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" filterProperty="FAMILY_DESC" visible="{settingsModel>/FAMILY_DESC}">
+						<m:Label text="{i18n>FAMILY_DESC}" />
+						<template>
+							<m:Text text="{serviceModel>FAMILY_DESC}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" filterProperty="BRAND_DESC" visible="{settingsModel>/BRAND_DESC}">
+						<m:Label text="{i18n>BRAND_DESC}" />
+						<template>
+							<m:Text text="{serviceModel>MAT_BRAND}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" filterProperty="MODEL_DESC" visible="{settingsModel>/MODEL_DESC}">
+						<m:Label text="{i18n>MODEL_DESC}" />
+						<template>
+							<m:Text text="{serviceModel>MAT_MODEL}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" visible="{settingsModel>/MAT_DIMENSIONS}">
+						<m:Label text="{i18n>MAT_DIMENSIONS}" />
+						<template>
+							<m:Text text="{serviceModel>MAT_DIMENSIONS}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" filterProperty="FGMDI" hAlign="Center" visible="{settingsModel>/FGMDI}">
+						<m:Label text="{i18n>FGMDI}" />
+						<template>
+							<m:Text text="{serviceModel>FGMDI}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" hAlign="Center" visible="{settingsModel>/MAT_FIXED_ASSET}">
+						<m:Label text="{i18n>MAT_FIXED_ASSET}" />
+						<template>
+							<m:Switch type="AcceptReject" state="{= ${serviceModel>MAT_FIXED_ASSET} === 'X' ? true : false  }" enabled="false">
+								<m:layoutData>
+									<m:FlexItemData growFactor="1" />
+								</m:layoutData>
+							</m:Switch>
+							<!--<m:Text text="{serviceModel>MAT_FIXED_ASSET}" wrapping="false" />-->
+						</template>
+					</Column>
+                    <Column width="11rem" hAlign="Center" visible="{settingsModel>/MAT_STANDARD}">
+						<m:Label text="{i18n>MAT_STANDARD}" />
+						<template>
+						    <m:Switch type="AcceptReject" state="{= ${serviceModel>MAT_STANDARD} === 'X' ? true : false  }" enabled="false">
+								<m:layoutData>
+									<m:FlexItemData growFactor="1" />
+								</m:layoutData>
+							</m:Switch>
+							<!--<m:Text text="{serviceModel>MAT_STANDARD}" wrapping="false" />-->
+						</template>
+					</Column>
+                    <Column width="11rem" hAlign="Center" visible="{settingsModel>/MAT_PATRIMONIO}">
+						<m:Label text="{i18n>MAT_PATRIMONIO}" />
+						<template>
+						    <m:Switch type="AcceptReject" state="{= ${serviceModel>MAT_PATRIMONIO} === 'X' ? true : false  }" enabled="false">
+								<m:layoutData>
+									<m:FlexItemData growFactor="1" />
+								</m:layoutData>
+							</m:Switch>
+							<!--<m:Text text="{serviceModel>MAT_PATRIMONIO}" wrapping="false" />-->
+						</template>
+					</Column>
+                    <Column width="11rem" hAlign="Center" visible="{settingsModel>/MAT_SPECIAL}">
+						<m:Label text="{i18n>MAT_SPECIAL}" />
+						<template>
+						    <m:Switch type="AcceptReject" state="{= ${serviceModel>MAT_SPECIAL} === 'X' ? true : false  }" enabled="false">
+								<m:layoutData>
+									<m:FlexItemData growFactor="1" />
+								</m:layoutData>
+							</m:Switch>
+							<!--<m:Text text="{serviceModel>MAT_SPECIAL}" wrapping="false" />-->
+						</template>
+					</Column>
+                    <Column width="11rem" filterProperty="DIVISION_DESC" visible="{settingsModel>/DIVISION_DESC}">
+						<m:Label text="{i18n>DIVISION_DESC}" />
+						<template>
+							<m:Text text="{serviceModel>DIVISION_DESC}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" filterProperty="AREA_DESC" visible="{settingsModel>/AREA_DESC}">
+						<m:Label text="{i18n>AREA_DESC}" />
+						<template>
+							<m:Text text="{serviceModel>AREA_DESC}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" visible="{settingsModel>/UBICA}">
+						<m:Label text="{i18n>UBICA}" />
+						<template>
+							<m:Text text="{serviceModel>UBICA}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" visible="{settingsModel>/SUBIC}">
+						<m:Label text="{i18n>SUBIC}" />
+						<template>
+							<m:Text text="{serviceModel>SUBIC}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" filterProperty="SUMIN" visible="{settingsModel>/SUMIN}">
+						<m:Label text="{i18n>SUMIN}" />
+						<template>
+							<m:Text  text="{path: 'serviceModel>SUMIN', formatter: '.formatter.getSumiText'}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" filterProperty="VISTA" hAlign="Center" visible="{settingsModel>/VISTA}">
+						<m:Label text="{i18n>VISTA}" />
+						<template>
+							<m:Text text="{= ${serviceModel>VISTA} === 1 ? 'Front' : 'Back' }" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" visible="{settingsModel>/QUOTATION_ID}">
+						<m:Label text="{i18n>EBELN}" />
+						<template>
+							<m:Text text="{serviceModel>QUOTATION_ID}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" visible="{settingsModel>/EBELP}">
+						<m:Label text="{i18n>EBELP}" />
+						<template>
+							<m:Text text="{serviceModel>QUOTATION_ITEM}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" visible="{settingsModel>/TEXTO}">
+						<m:Label text="{i18n>TEXTO}" />
+						<template>
+							<m:Text text="{serviceModel>TEXTO}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" visible="{settingsModel>/CREATION_NAME}">
+						<m:Label text="{i18n>CREATION_NAME}" />
+						<template>
+							<m:Text text="{= ${serviceModel>CREATION_NAME} + ' ' + ${serviceModel>CREATION_LNAME} }" wrapping="false" />
+						</template>
+					</Column>
+                    <Column width="11rem" visible="{settingsModel>/MODIFY_NAME}">
+						<m:Label text="{i18n>MODIFY_NAME}" />
+						<template>
+							<m:Text text="{= ${serviceModel>MODIFY_NAME} + ' ' + ${serviceModel>MODIFY_LNAME} }" wrapping="false" />
+						</template>
+					</Column>
+				</columns>
+				<rowSettingsTemplate>
+				<RowSettings
+					highlight="{= 
+						${serviceModel>isSubtotal} ? 'Success' :
+						${serviceModel>isTotal} ? 'Warning' :
+						'None'
+					}" />
+    </rowSettingsTemplate>
+			</Table>
+				<m:Dialog id="columnSettingsDialog" title="{i18n>setColumns}">
+					<m:content>
+						<m:List id="columnList" mode="MultiSelect">
+							<m:StandardListItem title="{i18n>LOEKZ}" 	selected="{settingsModel>/LOEKZ}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>PSPNR}" 	selected="{settingsModel>/PSPNR}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>PROJECT_NAME}" 	selected="{settingsModel>/PROJECT_NAME}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>ERDAT}" 	selected="{settingsModel>/ERDAT}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>BANFN}" 	selected="{settingsModel>/BANFN}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>BNFPO}" 	selected="{settingsModel>/BNFPO}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>STATUS}" 	selected="{settingsModel>/STATUS}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>MATNR}" 	selected="{settingsModel>/MATNR}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>MATERIAL_NAME}" 	selected="{settingsModel>/MATERIAL_NAME}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>MATERIAL_DESC}" 	selected="{settingsModel>/MATERIAL_DESC}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>MENGE}" 	selected="{settingsModel>/MENGE}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>MEINS}" 	selected="{settingsModel>/MEINS}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>CATEGORY_DESC}" 	selected="{settingsModel>/CATEGORY_DESC}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>FAMILY_DESC}" 	selected="{settingsModel>/FAMILY_DESC}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>BRAND_DESC}" 	selected="{settingsModel>/BRAND_DESC}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>MODEL_DESC}" 	selected="{settingsModel>/MODEL_DESC}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>MAT_DIMENSIONS}" 	selected="{settingsModel>/MAT_DIMENSIONS}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>MAT_FIXED_ASSET}" 	selected="{settingsModel>/MAT_FIXED_ASSET}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>MAT_STANDARD}" 	selected="{settingsModel>/MAT_STANDARD}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>MAT_PATRIMONIO}" 	selected="{settingsModel>/MAT_PATRIMONIO}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>MAT_SPECIAL}" 	selected="{settingsModel>/MAT_SPECIAL}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>DIVISION_DESC}" 	selected="{settingsModel>/DIVISION_DESC}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>AREA_DESC}" 	selected="{settingsModel>/AREA_DESC}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>UBICA}" 	selected="{settingsModel>/UBICA}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>SUBIC}" 	selected="{settingsModel>/SUBIC}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>SUMIN}" 	selected="{settingsModel>/SUMIN}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>VISTA}" 	selected="{settingsModel>/VISTA}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>EBELN}" 	selected="{settingsModel>/EBELN}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>EBELP}" 	selected="{settingsModel>/EBELP}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>TEXTO}" 	selected="{settingsModel>/TEXTO}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>CREATION_NAME}" 	selected="{settingsModel>/CREATION_NAME}" 	press="onToggleColumnVisibility"/>
+							<m:StandardListItem title="{i18n>MODIFY_NAME}" 	selected="{settingsModel>/MODIFY_NAME}" 	press="onToggleColumnVisibility"/>
+						</m:List>
+					</m:content>
+					<m:beginButton>
+						<m:Button text="OK" press="onCloseColumnSettings"/>
+					</m:beginButton>
+				</m:Dialog>
+        </m:ScrollContainer>
+       </f:content>
+    </f:DynamicPage>
+</mvc:View>

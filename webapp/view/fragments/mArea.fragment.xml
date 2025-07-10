@@ -1,0 +1,22 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		id="V8"
+		title="{i18n>AREA_DESC}"
+		items="{serviceModel>/fArea}"
+		search="_handleArea"
+		confirm="_handleDialogClose"
+		cancel="onCancel"
+		multiSelect="true">
+        <customData>
+			<core:CustomData
+				key="fragmentPath"
+				value="AREA" />	<!--Need send the Fragment ID items="{serviceModelPsr>/Psnr}"-->
+		</customData>
+		<StandardListItem
+			title="{serviceModel>AREA}"
+			description="{serviceModel>AREA_DESC}"
+            class="hideTitle"/>
+	</SelectDialog>
+</core:FragmentDefinition>

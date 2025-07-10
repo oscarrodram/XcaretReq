@@ -1,0 +1,1 @@
+{"version":3,"file":"formatter.js","names":["sap","ui","define","getSumiText","status"],"sources":["formatter-dbg.js"],"mappings":"AAAAA,IAAIC,GAAGC,OAAO,GAAI,KACjB,aAEA,MAAO,CACNC,YAAa,SAAUC,GACtB,OAAQA,GACP,KAAK,EAAG,MAAO,eACf,KAAK,EAAG,MAAO,WACf,KAAK,EAAG,MAAO,UAEjB","ignoreList":[]}

@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/UIComponent","reprequeriments/model/models","reprequeriments/model/SettingsModel","sap/ui/model/json/JSONModel"],(e,t,i,s)=>{"use strict";return e.extend("reprequeriments.Component",{metadata:{manifest:"json",interfaces:["sap.ui.core.IAsyncContentCreation"]},init(){e.prototype.init.apply(this,arguments);this.setModel(t.createDeviceModel(),"device");this.setModel(i.createSettingsModel(),"settingsModel");this.getRouter().initialize()}})});
+//# sourceMappingURL=Component.js.map

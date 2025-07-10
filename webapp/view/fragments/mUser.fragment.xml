@@ -1,0 +1,22 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		id="V11"
+		title="{i18n>CREATION_NAME}"
+		items="{serviceModel>/fCrea}"
+		search="_handleUser"
+		confirm="_handleDialogClose"
+		cancel="onCancel"
+		multiSelect="true">
+        <customData>
+			<core:CustomData
+				key="fragmentPath"
+				value="CNAME" />	<!--Need send the Fragment ID items="{serviceModelPsr>/Psnr}"-->
+		</customData>
+		<StandardListItem
+			title="{serviceModel>ERNAM}"
+			description="{serviceModel>CREATION_NAME} {serviceModel>CREATION_LNAME}"
+            class="hideTitle"/>
+	</SelectDialog>
+</core:FragmentDefinition>

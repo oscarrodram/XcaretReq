@@ -1,0 +1,1 @@
+{"version":3,"file":"constants.js","names":["sap","ui","define","BusyIndicator","API","BASE_DEVURL","BASE_QASVURL","BASE_PRDURL","RTYPE","REQUERIMENTS_ENDPOINT"],"sources":["constants-dbg.js"],"mappings":"AAAAA,IAAIC,GAAGC,OAAO,CAAC,6BACZ,SAAUC,GACT,aACA,MAAO,CACHC,IAAK,CACDC,YAAa,4GACbC,aAAc,iDACdC,YAAa,4GACbC,MAAO,mBACPC,sBAAuB,sBAGnC","ignoreList":[]}

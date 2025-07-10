@@ -1,0 +1,22 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		id="V6"
+		title="{i18n>FGMDI}"
+		items="{serviceModel>/ffg}"
+		search="_handleFFE"
+		confirm="_handleDialogClose"
+		cancel="onCancel"
+		multiSelect="true">
+        <customData>
+			<core:CustomData
+				key="fragmentPath"
+				value="FGMDI" />	<!--Need send the Fragment ID items="{serviceModelPsr>/Psnr}"-->
+		</customData>
+		<StandardListItem
+			title="{serviceModel>FGMDI}"
+			description="{serviceModel>FGMDI}"
+            class="hideTitle"/>
+	</SelectDialog>
+</core:FragmentDefinition>

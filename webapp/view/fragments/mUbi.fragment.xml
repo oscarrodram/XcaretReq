@@ -1,0 +1,22 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		id="V9"
+		title="{i18n>UBICA}"
+		items="{serviceModel>/fUbi}"
+		search="_handleUbi"
+		confirm="_handleDialogClose"
+		cancel="onCancel"
+		multiSelect="true">
+        <customData>
+			<core:CustomData
+				key="fragmentPath"
+				value="UBI" />	<!--Need send the Fragment ID items="{serviceModelPsr>/Psnr}"-->
+		</customData>
+		<StandardListItem
+			title="{serviceModel>UBICA}"
+			description="{serviceModel>UBICA}"
+            class="hideTitle"/>
+	</SelectDialog>
+</core:FragmentDefinition>
